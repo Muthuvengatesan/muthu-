@@ -3,24 +3,361 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mini Game Zone</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Muthu | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d0d0d;
+      color: #f0f0f0;
+      scroll-behavior: smooth;
+    }
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 999;
+      backdrop-filter: blur(10px);
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #00ffcc;
+    }
+    section {
+      padding: 100px 20px;
+      min-height: 100vh;
+    }
+    .home {
+      background: linear-gradient(to right, #111, #222);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .home h1 {
+      font-size: 3.2rem;
+      color: #00ffcc;
+      margin-bottom: 1rem;
+    }
+    .home p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #00ffcc;
+      text-align: center;
+    }
+    .about p {
+      max-width: 800px;
+      margin: auto;
+      font-size: 1.1rem;
+      color: #ddd;
+      text-align: center;
+      line-height: 1.6;
+    }
+    ul {
+      list-style: none;
+      max-width: 800px;
+      margin: auto;
+      padding: 0;
+    }
+    li {
+      background: #1e1e1e;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-left: 5px solid #00ffcc;
+      transition: transform 0.3s ease;
+    }
+    li:hover {
+      transform: scale(1.02);
+    }
+    form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, textarea {
+      padding: 0.8rem;
+      border-radius: 5px;
+      background: #333;
+      border: none;
+      color: #fff;
+    }
+    button {
+      padding: 0.8rem;
+      background: #00ffcc;
+      color: #000;
+      border: none;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #00ddb3;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #000;
+      color: #888;
+    }
+
+    @media (max-width: 768px) {
+      .home h1 {
+        font-size: 2.2rem;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 1rem;
+      }
+    }
+    .profile-pic {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00ffcc;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+  transition: transform 0.3s ease;
+}
+.profile-pic:hover {
+  transform: scale(1.05);
+}
+.home-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+}
+
+.home-img img {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #00ffcc;
+  box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+}
+
+.home-text h1 {
+  font-size: 2.8rem;
+  color: #00ffcc;
+  margin-bottom: 1rem;
+}
+
+.home-text p {
+  font-size: 1.2rem;
+  color: #ccc;
+  max-width: 400px;
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.certificate {
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.certificate img {
+  width: 100%;
+  border-radius: 12px;
+  border: 3px solid #00ffcc;
+  box-shadow: 0 0 10px rgba(0,255,204,0.3);
+}
+
+.certificate:hover {
+  transform: scale(1.05);
+}
+
+/* Modal Styling */
+.cert-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+  text-align: center;
+}
+
+.cert-modal img {
+  max-width: 90%;
+  max-height: 80vh;
+  border: 5px solid #00ffcc;
+  border-radius: 10px;
+  margin-top: 2rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+  </style>
 </head>
 <body>
+
+  <!-- Navbar -->
   <header>
-    <h1>🎮 Mini Game Zone</h1>
-    <p>Select a game and have fun!</p>
+    <div class="logo">Muthu</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <main class="game-list">
-    <a href="tic-tac-toe.html" class="game-card">Tic Tac Toe
-    </a>
-    <a href="dino-run.html" class="game-card">Dino Jump</a>
-    <a href="memory-match.html" class="game-card">Memory Match</a>
-  </main>
+  <!-- Home -->
+<section class="home" id="home" data-aos="fade-in">
+  <div class="home-content">
+    <div class="home-img">
+      <img src="C:\Users\muthu\OneDrive\Pictures\peaky bliander.jpg" alt="Muthu"  width="300px" height="auto"/>
+    </div>
+    <div class="home-text">
+      <h1>Hello, I'm Muthu 👋</h1>
+      <p>A passionate Java Developer & Frontend Enthusiast</p>
+    </div>
+  </div>
+</section>
+
+
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about" data-aos="fade-up">
+    <h2>About Me</h2>
+    <p>
+      I'm a Java developer with a passion for frontend design and interactivity. From writing backend logic in Java to styling pixel-perfect UIs in HTML, CSS, and JavaScript, I love creating projects that are both functional and visually appealing.
+    </p>
+  </section>
+
+  <!-- Certifications -->
+  <section class="certifications" id="certifications" data-aos="fade-right">
+    <h2>Certifications</h2>
+    <section class="certifications" id="certifications" data-aos="fade-up">
+  <h2 class="section-title">Certifications</h2>
+  
+  <div class="cert-grid">
+    <!-- Example Certificate -->
+    <div class="certificate" onclick="openModal('cert1.jpg')">
+      <img src="C:\Users\muthu\OneDrive\Desktop\Muthu v.pdf" alt="Certificate 1" />
+      <p>Java Foundations</p>
+    </div>
+    <!-- Add more certificate blocks as needed -->
+  </div>
+</section>
+
+<!-- Modal Viewer -->
+<div id="certModal" class="cert-modal" onclick="closeModal()">
+  <span class="close-btn">&times;</span>
+  <img class="modal-content" id="modalImage" />
+</div>
+
+    <ul>
+      <li> ✅ Google Cloud Computing Foundations
+        <img src="C:\Users\muthu\OneDrive\Desktop\Muthu v.pdf" />
+      </li>
+      <li>✅ Java Programming Mastery</li>
+      <li>✅ Responsive Web Design Certification</li>
+    </ul>
+  </section>
+
+  <!-- Projects -->
+  <section class="projects" id="projects" data-aos="fade-left">
+    <h2>Projects</h2>
+    <ul>
+      <li>📚 <strong>Online Bookstore App</strong> — Java, HTML, CSS, JavaScript</li>
+      <li>📸 <strong>InstaClone Pro Max</strong> — Instagram UI Clone with dark mode</li>
+      <li>🎯 <strong>Advanced Portfolio Website</strong> — Smooth animations, responsive UI</li>
+    </ul>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact" data-aos="fade-up">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
 
   <footer>
-    <p>Made with ❤️ by You</p>
+    <p>&copy; 2025 Muthu. All rights reserved.</p>
   </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+  </script>
+  <script>
+  function openModal(imgSrc) {
+    const modal = document.getElementById('certModal');
+    const modalImg = document.getElementById('modalImage');
+    modal.style.display = 'block';
+    modalImg.src = imgSrc;
+  }
+
+  function closeModal() {
+    document.getElementById('certModal').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
